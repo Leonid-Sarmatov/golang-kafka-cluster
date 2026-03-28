@@ -1,0 +1,4 @@
+kafka_cluster/alpha/*
+kafka_cluster/bravo/*
+kafka_cluster/charlie/*
+log.txt
