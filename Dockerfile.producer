@@ -1,0 +1,24 @@
+# Сборка
+FROM golang:1.25.7 AS builder
+
+RUN apt-get update && apt-get install -y librdkafka-dev pkg-config
+
+WORKDIR /app_directory
+
+COPY go.mod ./
+COPY go.sum ./
+RUN go mod download
+
+COPY /cmd ./cmd
+
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o app_bin ./cmd/producer/main.go
+
+# Запуск
+FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y librdkafka1 && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app_directory
+COPY --from=builder /app_directory/app_bin .
+
+ENTRYPOINT ["./app_bin"]

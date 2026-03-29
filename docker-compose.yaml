@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  kafka-server-alpha:
+    image: apache/kafka:4.2.0
+    container_name: kafka-container-alpha
+    volumes:
+      - ./kafka_cluster/properties/server-alpha.properties:/opt/kafka/config/server.properties
+      - ./kafka_cluster/alpha:/data/kafka
+      - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
+    logging:
+      driver: "none"
+    command: >
+      bash /opt/kafka/bin/startup.sh
+    # command: >
+    #   bash -c "/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties"
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh random-uuid
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh format --cluster-id G_3ws2gtSqKZVfPl2LgSYA --config /opt/kafka/config/server.properties
+    networks:
+      - cluster-net
+
+  kafka-server-bravo:
+    image: apache/kafka:4.2.0
+    container_name: kafka-container-bravo
+    volumes:
+      - ./kafka_cluster/properties/server-bravo.properties:/opt/kafka/config/server.properties
+      - ./kafka_cluster/bravo:/data/kafka
+      - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
+    logging:
+      driver: "none"
+    command: >
+      bash /opt/kafka/bin/startup.sh
+    # command: >
+    #   bash -c "/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties"
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh random-uuid
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh format --cluster-id G_3ws2gtSqKZVfPl2LgSYA --config /opt/kafka/config/server.properties
+    networks:
+      - cluster-net
+
+  kafka-server-charlie:
+    image: apache/kafka:4.2.0
+    container_name: kafka-container-charlie
+    volumes:
+      - ./kafka_cluster/properties/server-charlie.properties:/opt/kafka/config/server.properties
+      - ./kafka_cluster/charlie:/data/kafka
+      - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
+    logging:
+      driver: "none"
+    command: >
+      bash /opt/kafka/bin/startup.sh
+    # command: >
+    #   bash -c "/opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties"
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh random-uuid
+    # command: >
+    #   /opt/kafka/bin/kafka-storage.sh format --cluster-id G_3ws2gtSqKZVfPl2LgSYA --config /opt/kafka/config/server.properties
+    networks:
+      - cluster-net
+
+  test-producer:
+    image: test-producer:0.01
+    container_name: test-producer-container
+    networks:
+      - cluster-net
+
+  test-consumer:
+    image: test-consumer:0.01
+    container_name: test-consumer-container
+    networks:
+      - cluster-net
+
+networks:
+  cluster-net:
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
