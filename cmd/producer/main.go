@@ -15,7 +15,7 @@ func main() {
 
 	bootstrapServers := "kafka-server-alpha:9092"
 	topic := "test"
-	totalMsgcnt := 3
+	//totalMsgcnt := 3
 
 	p, err := kafka.NewProducer(&kafka.ConfigMap{"bootstrap.servers": bootstrapServers})
 
@@ -46,7 +46,7 @@ func main() {
 	}()
 
 	msgcnt := 0
-	for msgcnt < totalMsgcnt {
+	for {
 		value := fmt.Sprintf("Producer example, message #%d", msgcnt)
 
 		err = p.Produce(&kafka.Message{
@@ -62,6 +62,7 @@ func main() {
 			}
 			fmt.Printf("Failed to produce message: %v\n", err)
 		}
+		time.Sleep(time.Second)
 		msgcnt++
 	}
 

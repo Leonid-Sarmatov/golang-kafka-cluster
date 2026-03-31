@@ -14,7 +14,7 @@ func main() {
 
 	time.Sleep(8 * time.Second)
 
-	bootstrapServers := "kafka-server-alpha:9092"
+	bootstrapServers := "kafka-server-charlie:9092"
 	group := "1"
 	topics := []string{"test"}
 	sigchan := make(chan os.Signal, 1)
