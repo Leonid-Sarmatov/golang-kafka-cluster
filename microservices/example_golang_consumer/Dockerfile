@@ -9,9 +9,9 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY /cmd ./cmd
+COPY /microservices/example_golang_consumer/cmd ./cmd
 
-RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o app_bin ./cmd/producer/main.go
+RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o app_bin ./cmd/main.go
 
 # Запуск
 FROM debian:bookworm-slim
