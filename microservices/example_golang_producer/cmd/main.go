@@ -1,6 +1,10 @@
 package main
 
 import (
+	"context"
+	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	//kafka "github.com/confluentinc/confluent-kafka-go/v2/kafka"
@@ -69,6 +73,14 @@ func main() {
 	// }
 	// p.Close()
 
+	graceful_shutdown_ctx, stop := signal.NotifyContext(
+		context.Background(),
+		os.Interrupt,    // Ctrl+C
+		syscall.SIGTERM, // docker / k8s
+		syscall.SIGQUIT, // debug stack dump
+	)
+	defer stop()
+
 	p := kafka.NewKafkaProducer(
 		kafka.ConnectionAttempts(10),
 		kafka.EnableExponentialConnectionWithJitter(500*time.Millisecond),
@@ -83,6 +95,5 @@ func main() {
 
 	kafka.SimpleExampleProducer(p)
 
-	for {
-	}
+	<-graceful_shutdown_ctx.Done()
 }
