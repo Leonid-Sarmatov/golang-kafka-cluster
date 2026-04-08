@@ -62,13 +62,13 @@ services:
       - cluster-net
 
   test-producer:
-    image: test-producer:0.01
+    image: test-producer:0.0.1
     container_name: test-producer-container
     networks:
       - cluster-net
 
   test-consumer:
-    image: test-consumer:0.01
+    image: test-consumer:0.0.1
     container_name: test-consumer-container
     networks:
       - cluster-net

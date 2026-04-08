@@ -9,6 +9,7 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
+COPY /libs/golang/kafka ./libs/golang/kafka
 COPY /microservices/example_golang_producer/cmd ./cmd
 
 RUN CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -o app_bin ./cmd/main.go
