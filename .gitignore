@@ -2,3 +2,5 @@ kafka_cluster/alpha/*
 kafka_cluster/bravo/*
 kafka_cluster/charlie/*
 log.txt
+microservices/example_haskell_consumer/dist-newstyle/*
+dist-newstyle

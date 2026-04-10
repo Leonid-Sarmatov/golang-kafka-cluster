@@ -98,6 +98,13 @@ func (kf *KafkaProducer) Init() error {
 		attempts_counter += 1
 	}
 
+	if err != nil {
+		log.Printf("Producer can not connect to kafka cluster")
+		return err
+	}
+
+	log.Printf("Producer successfuly connected to kafka cluster\n")
+
 	return nil
 }
 
