@@ -3,7 +3,9 @@
 {-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE RecordWildCards #-}
 
-module ExampleLib where
+{-# LANGUAGE ForeignFunctionInterface #-}
 
-bubilda :: IO ()
-bubilda = putStrLn "big bubilda!"
+module FFI.HelloFFI where
+
+foreign import ccall "hello_ffi"
+  helloFFI :: IO ()

@@ -13,6 +13,7 @@ COPY /microservices/example_haskell_consumer/LICENSE ./LICENSE
 COPY /microservices/example_haskell_consumer/CHANGELOG.md ./CHANGELOG.md
 COPY /microservices/example_haskell_consumer/main ./main
 COPY /microservices/example_haskell_consumer/examplelib ./examplelib
+COPY /microservices/example_haskell_consumer/librdkafka ./librdkafka
 
 # RUN --mount=type=cache,target=/root/.cabal \
 #     --mount=type=cache,target=/app_directory/dist-newstyle \

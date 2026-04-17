@@ -57,13 +57,21 @@ common warnings
     ghc-options: -Wall
 
 library
-    hs-source-dirs:   examplelib
+    hs-source-dirs:   
+        ./examplelib,
+        ./librdkafka/lowlevel,
+        ./librdkafka/highlevel,
 
-    exposed-modules:  ExampleLib
+    exposed-modules:  
+        ExampleLib,
+        FFI.HelloFFI
 
     build-depends:    base
 
     default-language: GHC2024
+
+    c-sources: 
+        ./librdkafka/lowlevel/C/hello_ffi.c
 
 executable example-haskell-consumer
     -- Import common warning flags.
@@ -73,7 +81,8 @@ executable example-haskell-consumer
     main-is:          Main.hs
 
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules:
+        ExampleLib
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
@@ -83,7 +92,9 @@ executable example-haskell-consumer
         base, example-haskell-consumer
 
     -- Directories containing source files.
-    hs-source-dirs:   main
+    hs-source-dirs:   
+        main,
+        examplelib
 
     -- Base language which the package is written in.
     default-language: GHC2024
