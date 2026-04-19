@@ -59,8 +59,7 @@ common warnings
 library
     hs-source-dirs:   
         ./examplelib,
-        ./librdkafka/lowlevel,
-        ./librdkafka/highlevel,
+        ./librdkafka
 
     exposed-modules:  
         ExampleLib,
@@ -71,7 +70,7 @@ library
     default-language: GHC2024
 
     c-sources: 
-        ./librdkafka/lowlevel/C/hello_ffi.c
+        ./librdkafka/C/hello_ffi.c
 
 executable example-haskell-consumer
     -- Import common warning flags.
