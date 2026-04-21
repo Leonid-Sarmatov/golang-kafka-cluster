@@ -6,4 +6,4 @@
 module ExampleLib where
 
 bubilda :: IO ()
-bubilda = putStrLn "big bubilda!"
+bubilda = putStrLn "bubilda!"
