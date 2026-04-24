@@ -5,8 +5,10 @@
 
 module Main where
 
-import qualified ExampleLib (bubilda)
-import qualified FFI.HelloFFI (c_helloFFI, modifedString)
+import Foreign.Ptr
+
+import ExampleLib 
+import FFI.HelloFFI
 
 main :: IO ()
 main = do
@@ -17,4 +19,7 @@ main = do
     case eitherResult of
         Left e -> putStrLn $ show e
         Right str -> putStrLn "Successfull!!!" >> putStrLn str
+    cb <- mkCallback callback
+    c_runEventLoop cb
+    freeHaskellFunPtr cb
     putStrLn "Program has been stopped"
