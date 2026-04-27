@@ -59,11 +59,11 @@ type Callback = Ptr Context -> IO ()
 foreign import ccall "wrapper"
   mkCallback :: Callback -> IO (FunPtr Callback)
 
-foreign import ccall "run_event_loop"
+foreign import ccall safe "run_event_loop"
   c_runEventLoop :: FunPtr Callback -> IO ()
 
 callback :: Callback
 callback ptr =
   handle 
   (\(e :: SomeException) -> putStrLn $ "[HASKELL EXCEPTION]: " ++ show e)
-  (peek ptr >>= (\ctx -> putStrLn $ "[HASKELL] got event: " ++ show (eventId ctx)))
+  (peek ptr >>= (\ctx -> putStrLn $ "[HASKELL]: got event: " ++ show (eventId ctx)))

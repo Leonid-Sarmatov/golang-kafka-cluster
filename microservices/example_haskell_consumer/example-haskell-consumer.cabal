@@ -63,7 +63,8 @@ library
 
     exposed-modules:  
         ExampleLib,
-        FFI.HelloFFI
+        FFI.HelloFFI,
+        FFI.Version
 
     build-depends:    base
 
@@ -71,6 +72,10 @@ library
 
     c-sources: 
         ./librdkafka/C/hello_ffi.c
+        ./librdkafka/C/version.c
+
+    pkgconfig-depends: 
+        rdkafka
 
 executable example-haskell-consumer
     -- Import common warning flags.

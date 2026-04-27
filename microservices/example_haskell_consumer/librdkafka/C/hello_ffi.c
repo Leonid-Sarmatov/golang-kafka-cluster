@@ -9,19 +9,14 @@ void hello_ffi() {
 }
 
 char* modifed_string(char* input) {
-
     size_t size = strlen(input) + strlen("[C]: I was received: ") + 1;
-
     char* result = (char*)malloc(size);
     if (result == NULL) {
         printf("[C ERROR]: can not allocate memory!\n");
         return NULL;
     }
-
     snprintf(result, size, "[C]: I was received: %s", input);
-
-    printf("[C]: I was received: %s", input);
-
+    printf("[C]: I was received: %s\n", input);
     return result;
 }
 

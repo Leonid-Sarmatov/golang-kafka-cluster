@@ -3,6 +3,8 @@ FROM haskell:9.12.4-bookworm AS builder
 
 WORKDIR /app_directory
 
+RUN apt-get update && apt-get install -y librdkafka-dev pkg-config
+
 RUN cabal update
 
 COPY /microservices/example_haskell_consumer/example-haskell-consumer.cabal ./example-haskell-consumer.cabal
@@ -31,6 +33,8 @@ RUN --mount=type=cache,target=/app_directory/dist-newstyle \
 
 # Запуск
 FROM debian:bookworm-slim
+
+RUN apt-get update && apt-get install -y librdkafka1 && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app_directory
 
