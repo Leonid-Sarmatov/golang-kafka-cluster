@@ -9,7 +9,7 @@ services:
       - ./kafka_cluster/alpha:/data/kafka
       - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
     logging:
-      driver: "none"
+      driver: "local"
     command: >
       bash /opt/kafka/bin/startup.sh
     # command: >
@@ -29,7 +29,7 @@ services:
       - ./kafka_cluster/bravo:/data/kafka
       - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
     logging:
-      driver: "none"
+      driver: "local"
     command: >
       bash /opt/kafka/bin/startup.sh
     # command: >
@@ -49,7 +49,7 @@ services:
       - ./kafka_cluster/charlie:/data/kafka
       - ./kafka_cluster/startup.sh:/opt/kafka/bin/startup.sh
     logging:
-      driver: "none"
+      driver: "local"
     command: >
       bash /opt/kafka/bin/startup.sh
     # command: >
@@ -58,18 +58,34 @@ services:
     #   /opt/kafka/bin/kafka-storage.sh random-uuid
     # command: >
     #   /opt/kafka/bin/kafka-storage.sh format --cluster-id G_3ws2gtSqKZVfPl2LgSYA --config /opt/kafka/config/server.properties
+    stop_grace_period: 10s
     networks:
       - cluster-net
 
   test-producer:
-    image: test-producer:0.01
+    image: test-producer:0.0.1
     container_name: test-producer-container
+    logging:
+      driver: "local"
+    stop_grace_period: 10s
     networks:
       - cluster-net
 
   test-consumer:
-    image: test-consumer:0.01
+    image: test-consumer:0.0.1
     container_name: test-consumer-container
+    logging:
+      driver: "local"
+    stop_grace_period: 10s
+    networks:
+      - cluster-net
+
+  haskell-consumer:
+    image: haskell-consumer:0.0.1
+    container_name: haskell-consumer-container
+    logging:
+      driver: "local"
+    stop_grace_period: 10s
     networks:
       - cluster-net
 
